@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+message TFProviderType {
+	string TFProviderTypeName = 1;
+	string TFProviderTypeVars = 2;
+	string TFProviderTypeGitUrl = 3;
+}
+
+message TFProviderTypeResponse{
+	string TFProviderTypeID = 1;
+	string TFProviderTypeName = 2;
+}
+
+service Terraform {
+	// Deploy, fabuxiangmu.
+	rpc TFProviderTypeAdd(TFProviderType) returns (TFProviderTypeResponse);
+}

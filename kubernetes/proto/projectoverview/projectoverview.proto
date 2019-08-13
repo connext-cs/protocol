@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+service ProjectOverview {
+    //获取已用容器数量
+    rpc GetProjectPodsCountByParentProject (GetProjectPodsCountByParentProjectRequest) returns (GetProjectPodsCountByParentProjectResponse) {
+    };
+    //获取正在运行的项目数量
+    rpc GetRunningProjectsCount (GetRunningProjectsCountRequest) returns (GetRunningProjectsCountResponse) {
+    };
+    //获取中间件启动数量
+    rpc GetRunningCaaS (GetRunningCaaSRequest) returns (GetRunningCaaSResponse) {
+    };
+}
+
+message GetProjectPodsCountByParentProjectRequest {
+    string Parentprojectname = 1;
+}
+message GetProjectPodsCountByParentProjectResponse {
+    int64 PodsCount = 1;
+}
+
+message GetRunningProjectsCountRequest {
+    string Namespace = 1;
+}
+message GetRunningProjectsCountResponse {
+    int64 ProjectsRunningCount = 1;
+    int64 ProjectsCount = 2;
+}
+
+message GetRunningCaaSRequest {
+    string Namespace = 1;
+}
+message GetRunningCaaSResponse {
+    int64 RunningCaaS = 1;
+}
+
+

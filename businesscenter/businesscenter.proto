@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Businesscenter {
+    rpc NewApp(go.api.Request) returns (go.api.Response) {}
+    rpc UpdateApp(go.api.Request) returns (go.api.Response) {}
+    rpc QueryApp(go.api.Request) returns (go.api.Response) {}
+    rpc QueryAppByParentID(go.api.Request) returns (go.api.Response) {}
+    rpc DeleteApp(go.api.Request) returns (go.api.Response) {}
+    rpc ListApp(go.api.Request) returns (go.api.Response) {}
+    rpc ParentProjectList(go.api.Request) returns (go.api.Response) {}
+    rpc QueryK8SProParentProjectByTest(go.api.Request) returns (go.api.Response) {}
+    rpc ListNoLinkParentGroup(go.api.Request) returns (go.api.Response) {}
+    rpc FuzzyListParent(go.api.Request) returns (go.api.Response) {}
+    rpc FuzzyListParentGroup(go.api.Request) returns (go.api.Response) {}
+    rpc GetAllAppList(AppParam) returns (AppList) {}
+    rpc RpcQueryAppByParentID(ParentProjectInfo) returns (AppInfo) {}
+    rpc RPCListApp(RpcListAppRequest) returns (RpcListAppResponse){}
+    rpc RPCQueryApp(RpcQueryAppRequest) returns (RpcQueryAppResponse){}
+    rpc RPCListAppEnvs(RpcListAppRequest) returns (RPCListAppEnvsResponse){}
+
+}
+
+
+message RpcListAppRequest{
+    int64 UserId = 1;
+    int32 UserType = 2;
+}
+message RpcListAppResponse{
+    repeated AppItem AppItems = 1;
+}
+
+message RpcQueryAppRequest{
+    int32 AppID = 1;
+}
+message RpcQueryAppResponse{
+    int32 AppID = 1;
+    string AppName = 2;
+    repeated AppEnv Environments= 3;
+}
+
+
+message RPCListAppEnvsResponse{
+    repeated AppEnv Envs = 1;
+}
+
+message AppEnv {
+    int32 EnvId = 1;
+    string EnvName = 2;
+    int32 EnvType = 3;
+    repeated ParentProject Projects = 4;
+}
+message ParentProject {
+    int32 EnvId = 1;
+    int32 ProjectId = 2;
+    string ProjectName = 3;
+}
+
+
+service Deploymanage {
+    rpc Import(go.api.Request) returns (go.api.Response) {}
+    rpc Query(go.api.Request) returns (go.api.Response) {}
+}
+
+message AppParam {
+}
+
+message AppItem {
+    int32 AppID = 1;
+    string AppName = 2;
+}
+
+message AppList {
+    repeated AppItem AppList = 1;
+}
+
+message ParentProjectInfo{
+    int32 ParentProjectID = 1;
+}
+
+message AppInfo{
+    int32 AppID = 1;
+    string AppName = 2;
+    string EnvironmentName = 3;
+    int32 EnvironmentType = 4;
+}

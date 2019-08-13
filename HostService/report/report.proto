@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Report {
+    rpc TagList(go.api.Request) returns (go.api.Response){};
+    rpc HostList(go.api.Request) returns (go.api.Response){};
+    rpc HostReport(go.api.Request) returns (go.api.Response){};
+}

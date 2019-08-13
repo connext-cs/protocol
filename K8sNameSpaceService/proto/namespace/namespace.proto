@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Namespace {
+    rpc Newparentproject(go.api.Request) returns (go.api.Response) {}
+    rpc Parentprojectlist(go.api.Request) returns (go.api.Response) {}
+    rpc Parentprojectlistdb(go.api.Request) returns (go.api.Response) {}
+    rpc Updateparentproject(go.api.Request) returns (go.api.Response) {}
+    rpc Delparentproject(go.api.Request) returns (go.api.Response) {}
+    rpc Queryparentproject(go.api.Request) returns (go.api.Response) {}
+    rpc Countparentprojectconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Listparentprojectbynodeid(go.api.Request) returns (go.api.Response) {}
+    rpc Existparentprojectname(go.api.Request) returns (go.api.Response) {}
+
+    rpc Getparent(ParentID) returns (ParentItem) {}
+    rpc Listparentbynodeid(GroupID) returns (ParentList) {}
+
+    rpc ListParentProjectByType(ListParentProjectByTypeRequest) returns (ParentList){}
+
+    rpc Addsafemanager(go.api.Request) returns (go.api.Response) {}
+    rpc Groupquerysafemanager(go.api.Request) returns (go.api.Response) {}
+    rpc Querysafemanagerbyid(go.api.Request) returns (go.api.Response) {}
+    rpc Updatesafemanager(go.api.Request) returns (go.api.Response) {}
+    rpc Deletesafemanager(go.api.Request) returns (go.api.Response) {}
+
+    rpc Addconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Deleteconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Updateconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Queryconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Queryconfigname(go.api.Request) returns (go.api.Response) {}
+
+    rpc Addparentprojectgroup(go.api.Request) returns (go.api.Response) {}
+    rpc Deleteparentprojectgroup(go.api.Request) returns (go.api.Response) {}
+    rpc Updateparentprojectgroup(go.api.Request) returns (go.api.Response) {}
+    rpc Deleteparentprojectgroupcheck(go.api.Request) returns (go.api.Response) {}
+    rpc Queryparentprojectgroup(go.api.Request) returns (go.api.Response) {}
+    rpc Listparentprojectgroup(go.api.Request) returns (go.api.Response) {}
+    rpc Rpclistparentprojectgroup(EmptyReq) returns (ParentGroupList) {}
+    rpc Gettestparentprojectid(go.api.Request) returns (go.api.Response) {}
+
+    rpc Userparentprojectlist(go.api.Request) returns (go.api.Response) {}
+    rpc K8suserparentprojectlist(go.api.Request) returns (go.api.Response) {}
+    rpc Vmuserparentprojectlist(go.api.Request) returns (go.api.Response) {}
+    rpc K8sunuseparentprojectlist(go.api.Request) returns (go.api.Response) {}
+    rpc Vmunuseparentprojectlist(go.api.Request) returns (go.api.Response) {}
+    rpc GetParentByGroupID(GetParentByGroupReq) returns (GetParentByGroupRes) {}
+    rpc RpcGetGroupListByParentList(ParentIDList) returns (ParentGroupList) {}
+
+    rpc RpcFuzzyListParent(FuzzyListParentReq) returns (ParentList) {}
+    rpc RpcFuzzyListParentGroup(FuzzyListParentGroupReq) returns (ParentGroupList) {}
+    rpc RpcFuzzyListAuthorizeParent(FuzzyListAuthorizeParentReq) returns (ParentList){}
+}
+
+message ParentIDList {
+    repeated int32 ParentProjectID =1;
+}
+
+message FuzzyListParentReq {
+    int32 ParentProjectType = 1;
+    int32 ParentProjectEnvType = 2;
+    string ParentProjectName = 3;
+}
+
+message FuzzyListAuthorizeParentReq {
+    int32 ParentProjectType = 1;
+    int32 ParentProjectEnvType = 2;
+    string ParentProjectName = 3;
+    int32 userID = 4;
+}
+
+message FuzzyListParentGroupReq {
+    string ParentProjectGroupName = 1;
+}
+
+message ParentGroupList{
+    repeated ParentProjectGroupInfo GroupList =1;
+}
+
+message ParentID {
+    int32   ParentProjectID         = 1;
+}
+
+message GroupID {
+    int32   GroupID         = 1;
+}
+
+message GetParentByGroupReq{
+    int32 ParentProjectGroupID = 1;
+}
+
+message GetParentByGroupRes{
+    int32 TestParentProjectID = 1;
+    int32 ProParentProjectID = 2;
+}
+message ParentItem {
+    int32   ParentProjectID         = 1;
+    string  ParentProjectName       = 2;
+    string  ParentProjectK8sName    = 3;
+    int32   ParentProjectType       = 4;
+    int32   GroupID                 = 5;
+    string  CPU                     = 6;
+    string  Memory                  = 7;
+    string  Pods                    = 8;
+    string  GroupName               = 9;
+    int32   EnvType                 = 10;
+    string  GroupK8sName            = 11;
+    int32   ParentProjectGroupID    = 12;
+    string   ParentProjectGroupName  = 13;
+}
+
+message EmptyReq {
+
+}
+
+message ParentProjectGroupInfo {
+    int32 ParentProjectGroupID = 1;
+    string ParentProjectGroupName = 2;
+    ParentItem TestParentProject = 3;
+    ParentItem ProParentProject = 4;
+}
+
+message ParentList {
+    repeated ParentItem ParentList = 1;
+}
+
+message ListParentProjectByTypeRequest {
+    int32 ParentProjectType = 1;
+    int32 EnvType = 2;
+    int32 UserID = 3;
+    int32 UserType = 4;
+}

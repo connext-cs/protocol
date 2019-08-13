@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Deployment {
+    rpc QueryDeploymentList(go.api.Request) returns (go.api.Response) {}
+    rpc NewDeployment(go.api.Request) returns (go.api.Response) {}
+    rpc UpdateDeployment(go.api.Request) returns (go.api.Response) {}    
+    rpc DeleteDeployment(go.api.Request) returns (go.api.Response) {}
+    rpc QueryDeployment(go.api.Request) returns (go.api.Response) {}
+    rpc DeleteDeploymentHost(go.api.Request) returns (go.api.Response) {}
+    rpc AddDeploymentHost(go.api.Request) returns (go.api.Response) {}
+    rpc ReleaseDeployment(go.api.Request) returns (go.api.Response) {}
+    rpc DeploymentHostReleaseLog(go.api.Request) returns (go.api.Response) {}
+    rpc DeploymentHostReleaseHistory(go.api.Request) returns (go.api.Response) {}
+    rpc QueryDeploymentHostList(go.api.Request) returns (go.api.Response) {}
+    rpc StopDeploymentHost(go.api.Request) returns (go.api.Response) {}
+    rpc DeploymentReleaseHostList(go.api.Request) returns (go.api.Response) {} 
+    rpc UpdateHostDeployTag(go.api.Request) returns (go.api.Response) {}     
+    //通过CIID获取deployment列表
+    rpc RpcQueryCiDeploymentList(CIBase) returns (DeploymentList){}
+    //获取deployment信息
+    rpc RpcQueryDeployment(DeploymentID) returns (DeploymentInfo){}
+    rpc IfHostLinkDeploy(IfHostLinkDeployReq) returns (IfHostLinkDeployRes){}
+}
+
+service Templet {
+    rpc QueryTempletList(go.api.Request) returns (go.api.Response) {}
+}
+
+message CIBase{
+  int32 CIID = 1;
+}
+
+message DeploymentList {
+    repeated DeploymentInfo DeploymentList = 1;
+}
+
+message DeploymentInfo {
+    string DeploymentId = 1;
+    int32 DeploymentType = 2;
+    int32 ParentProjectId = 3;
+    int32 DeploymentCiId = 4;
+    int32 DeploymentTempletId = 5;
+    string DeploymentName = 6;
+    string DeploymentTempletValue = 7;
+    int32 DeploymentStatus = 8;
+    int32 DeploymentReleaseNumber = 9;
+    string CreateTime=10;
+    string UpdateTime=11;    
+    string DeploymentTempletName= 12;
+    int32 DeploymentTempletOS= 13;
+}
+
+message DeploymentID {
+    string ID = 1;
+}
+
+service SingleDeployment{
+    //新增
+    rpc NewSingleDeployment(go.api.Request) returns (go.api.Response) {}     
+    //修改
+    rpc UpdateSingleDeployment(go.api.Request) returns (go.api.Response) {}     
+    //查询
+    rpc QuerySingleDeployment(go.api.Request) returns (go.api.Response) {}     
+    //发布
+    rpc ReleaseSingleDeployment(go.api.Request) returns (go.api.Response) {}     
+    //查看发布历史列表
+    rpc ReleaseSingleDeploymentHistory(go.api.Request) returns (go.api.Response) {}  
+    //发布Zabbix
+    rpc ReleaseZabbixDeployment(go.api.Request) returns (go.api.Response) {}     
+
+    //rpc新增 
+    rpc RpcNewSingleDeployment(NewSingleDeploymentInfo) returns (SingleDeploymentID) {}         
+    //rpc修改 
+    rpc RpcUpdateSingleDeployment(UpdateSingleDeploymentInfo) returns (UpdateResult) {}
+    //rpc查询 
+    rpc RpcQuerySingleDeployment(SingleDeploymentID) returns (SingleDeploymentInfo){}
+}
+
+message NewSingleDeploymentInfo{
+    int32 DeploymentType = 1;
+    string DeploymentValue = 2;
+}
+
+message SingleDeploymentInfo {
+    string DeploymentId = 1;
+    int32 DeploymentType = 2;
+    string DeploymentValue = 3;
+    string DeploymentName = 4;
+    int32 DeploymentStatus = 5;
+    int32 DeploymentReleaseNumber = 6;
+    string CreateTime=7;
+    string UpdateTime=8;
+}
+
+message UpdateSingleDeploymentInfo {
+    string DeploymentId = 1;
+    int32 DeploymentType = 2;
+    string DeploymentValue = 3;
+}
+
+message UpdateResult {
+    string Error = 1;
+}
+
+message SingleDeploymentID{
+    string DeploymentId = 1;
+}
+
+message IfHostLinkDeployReq{
+    int32 HostId = 1;
+}
+
+message IfHostLinkDeployRes{
+    bool state = 1;
+}

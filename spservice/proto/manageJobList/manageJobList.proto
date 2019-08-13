@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+service ManageJobList {
+    rpc JobProcessReport (JobProcessReportRequest) returns (JobProcessReportResponse) {
+    };
+    rpc ClusterNodeJobProcessReport (ClusterNodeJobProcessReportRequest) returns (ClusterNodeJobProcessReportResponse) {
+    };
+}
+
+message JobProcessReportRequest {
+    int32 JobId = 1;
+    int32 State = 2;
+    string Log = 3;
+    string Desc = 4;
+}
+
+message JobProcessReportResponse {
+    bool Ok = 1;
+}
+
+message ClusterNodeJobProcessReportRequest {
+    int32 JobId = 1;
+    int32 State = 2;
+    string Log = 3;
+    string Desc = 4;
+}
+
+message ClusterNodeJobProcessReportResponse {
+    bool Ok = 1;
+}

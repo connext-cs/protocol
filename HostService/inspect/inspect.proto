@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Inspect {
+    rpc List(go.api.Request) returns (go.api.Response){};
+    rpc AppDetail(go.api.Request) returns (go.api.Response){};
+    rpc TagDetail(go.api.Request) returns (go.api.Response){};
+}

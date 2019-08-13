@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service ParentProject {
+    rpc Add(go.api.Request) returns (go.api.Response) {}
+    rpc List(go.api.Request) returns (go.api.Response) {}
+    rpc Query(go.api.Request) returns (go.api.Response) {}
+    rpc Update(go.api.Request) returns (go.api.Response) {}
+    rpc RpcUpdate(UpdateReq) returns (UpdateRes) {}
+    rpc Delete(go.api.Request) returns (go.api.Response) {}
+    rpc Exist(go.api.Request) returns (go.api.Response) {}
+    rpc NoneGroupHostList(go.api.Request) returns (go.api.Response) {}
+    //7 查询主机的分组信息
+    rpc QueryParentByHost(Host) returns(Group) {};
+    //8 从分组中删除主机
+    rpc RemoveHostFromParent(Host) returns(RemoveResult) {};
+    rpc AddHostIntoGroup(go.api.Request) returns (go.api.Response) {};
+    rpc RpcList(RpcListRequest) returns (RpcListResponse){}
+    rpc RpcQueryList(RpcQueryListRequest) returns (RpcQueryListResponse){}
+    rpc RpcQueryListByParentProjectIds(RpcQueryListByParentProjectIdsReq) returns (RpcQueryListResponse){}
+    rpc RpcQueryListByParentFuzzyName(RpcQueryListByParentFuzzyNameReq) returns (RpcQueryListResponse){}
+    rpc QueryHosts(go.api.Request) returns (go.api.Response){}
+}
+
+message RpcQueryListByParentFuzzyNameReq {
+  string FuzzyName = 1;
+}
+
+message Host {
+    int32  HostID = 1;
+}
+
+message RpcListRequest{
+    int64 UserId = 1;
+    bool QueryAll = 2;
+}
+
+message RpcListResponse{
+    repeated ParentProjectInfo ParentProjects = 1;
+}
+
+message RpcQueryListRequest{
+    int32 ParendProjectId = 1;
+}
+
+message RpcQueryListByParentProjectIdsReq {
+    repeated int32 ParentProjectIds = 1;
+}
+
+message RpcQueryListResponse{
+    repeated int32 Hosts = 1;
+}
+
+
+message ParentProjectInfo {
+	int32 ParentProjectID = 1;
+	string ParentProjectName = 2;
+}
+
+message Group {
+    int32  HostGroupID              = 1;
+    string HostGroupName = 2;
+}
+
+message RemoveResult {
+    string Error =   1;
+}
+
+message HostInfos {
+    int32   HostID          = 1;
+    string  HostName        = 2;
+    string  HostIP          = 3;
+    int32   HostState       = 4;
+    int32   HostSystem      = 5;
+    int32   ResourceType    = 6;
+    int32   HostType        = 7;
+    int32   GroupID         = 8;
+    string  GroupName       = 9;
+}
+
+message UpdateReq {
+    int32 ParentProjectID = 1;
+    repeated int32 HostIDList = 2;
+}
+
+message UpdateRes {}
+

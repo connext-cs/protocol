@@ -1,0 +1,11 @@
+syntax = "proto3";
+import "github.com/micro/go-api/proto/api.proto";
+service LogCenter {
+    //获取实时日志
+    rpc GetCurrentLog(go.api.Request) returns (go.api.Response) {}
+    //rpc GetCurrentLog(GetCurrentLogRequest) returns(GetCurrentLogResponse) {};
+    //获取pod列表
+    rpc GetPodList(go.api.Request) returns (go.api.Response) {}
+    //    rpc GetPodlist (GetPodListRequest) returns (GetPodListResponse) {};
+    rpc GetKibanaURL(go.api.Request) returns (go.api.Response) {}
+}

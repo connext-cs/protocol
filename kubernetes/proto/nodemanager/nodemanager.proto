@@ -1,0 +1,191 @@
+syntax = "proto3";
+
+service NodeManager {
+	//获取API版本
+	rpc GetApiserverVersion(GetApiserverVersionRequest) returns(GetApiserverVersionResponse) {};
+	//获取master状态
+	rpc GetMasterStatus(GetMasterStatusRequest) returns(GetMasterStatusResponse) {};
+	//获取集群cpu资源
+	rpc GetClusterCpu(GetClusterCpuRequest) returns(GetClusterCpuResponse) {};
+	//获取集群内存资源
+	rpc GetClusterMemory(GetClusterMemoryRequest) returns(GetClusterMemoryResponse) {};
+	//获取集群内pod数量
+	rpc GetTotalPodNumber(GetTotalPodNumberRequest) returns(GetTotalPodNumberResponse) {};
+	//获取网络组件
+	rpc GetNetworkComponent(GetNetworkComponentRequest) returns(GetNetworkComponentResponse) {};
+	//获取DNS组件
+	rpc GetDNSComponent(GetDNSComponentRequest) returns(GetDNSComponentResponse) {};
+	//获取监控组件
+	rpc GetMonitorComponent(GetMonitorComponentRequest) returns(GetMonitorComponentResponse) {};
+	//获取Node列表
+	rpc GetNodes(GetNodesRequest) returns(GetNodesResponse) {};
+	//获取Node基础信息
+	rpc GetNodeStatus(GetNodeStatusRequest) returns(GetNodeStatusResponse) {};
+	//获取节点分组名
+	rpc GetGroup(GetGroupRequest) returns(GetGroupResponse) {};
+	//添加到默认分组
+	rpc AddToDefaultGroup(AddToDefaultGroupRequest) returns(AddToDefaultGroupResponse) {};
+	//从默认分组移除
+	rpc RemoveFromDefaultGroup(RemoveFromDefaultGroupRequest) returns(RemoveFromDefaultGroupResponse) {};
+	//添加进分组
+	rpc AddToGroup(AddToGroupRequest) returns(AddToGroupResponse) {};
+	//从分组中移除
+	rpc RemoveFromGroup(RemoveFromGroupRequest) returns(RemoveFromGroupResponse) {};
+	//获取NodeName列表
+	rpc GetNodeNameList(GetNodesRequest) returns(GetNodeNameListResponse) {};
+	//获取分组中Node列表
+	rpc GetGroupNodeNameList(GetGroupNodeListRequest) returns(GetNodeNameListResponse) {};
+}
+
+
+message GetApiserverVersionRequest{ 
+}
+message GetApiserverVersionResponse{
+	string GitVersion = 1;
+}
+
+
+message GetMasterStatusRequest{
+}
+message GetMasterStatusResponse{
+}
+
+message GetClusterCpuRequest{ 
+}
+message GetClusterCpuResponse{
+	int32 CPU = 1;
+}
+
+message GetClusterMemoryRequest{ 
+}
+message GetClusterMemoryResponse{
+	int32 Memory = 1;
+}
+
+
+message GetTotalPodNumberRequest{ 
+}
+message GetTotalPodNumberResponse{
+	int32 PodNumber = 1;
+}
+
+
+message GetNetworkComponentRequest{ 
+}
+message NetworkComponent{
+	string Name = 1;
+	string Status = 2;
+}
+message GetNetworkComponentResponse{
+	NetworkComponent NetworkComponent = 1;
+}
+
+
+message GetDNSComponentRequest{ 
+}
+message DNSComponent{
+	string Name = 1;
+	string Status = 2;
+}
+message GetDNSComponentResponse{
+	DNSComponent DNSComponent = 1;
+}
+
+
+message GetMonitorComponentRequest{ 
+}
+message MonitorComponent{
+	string Name = 1;
+	string Status = 2;
+}
+message GetMonitorComponentResponse{
+	MonitorComponent MonitorComponent = 1;
+}
+
+
+message GetNodesRequest{ 
+	string Label = 1;
+}
+message Node{
+	string Name = 1;
+	string Status = 2;
+	int32 Cpu = 3;
+	int32 Memory = 4;
+	int32 PodNumber = 5;
+}
+
+message GetNodesResponse{
+	repeated Node Node = 1;
+}
+
+message NodeBase{
+	string Name = 1;
+	string Status = 2;
+	string GroupName = 3;
+}
+
+message GetNodeNameListResponse{
+	repeated NodeBase Node  = 1;
+}
+
+message GetNodeStatusRequest{ 
+	string Name = 1;
+}
+message NodeStatus{
+	string Ip = 1;
+	string Name = 2;
+	int32 CpuUsage = 3;
+	int32 MemUsage = 4;
+	string OSVersion = 5;
+	string K8SVersion = 6;
+	repeated Pod Pods = 7; 
+}
+message Pod{
+	string Name = 1;
+	string NameSpace = 2;
+	string PodIP = 3;
+	string Running = 4;
+	int32 Restarts = 5;
+}
+
+message GetNodeStatusResponse{
+	NodeStatus NodeStatus = 1;
+}
+
+
+message GetGroupRequest{ 
+	string Name = 1;
+}
+message GetGroupResponse{
+	string Groupname = 1;
+}
+
+message AddToDefaultGroupRequest{ 
+	string Name = 1;
+}
+message AddToDefaultGroupResponse{
+}
+
+message RemoveFromDefaultGroupRequest{ 
+	string Name = 1;
+}
+message RemoveFromDefaultGroupResponse{
+}
+
+message AddToGroupRequest{
+	string Name = 1;
+	string Groupname = 2;
+}
+message AddToGroupResponse{
+}
+
+message RemoveFromGroupRequest{
+	string Name = 1;
+	string Groupname = 2;
+}
+message RemoveFromGroupResponse{
+}
+
+message GetGroupNodeListRequest{ 
+	string Groupname = 1;
+}

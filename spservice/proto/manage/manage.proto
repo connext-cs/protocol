@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+service Manage {
+    rpc Deploy (DeployReq) returns (DeployRes) {
+    };
+    rpc Delete (DeleteReq) returns (DeleteRes) {
+    };
+    rpc Statue (StatueReq) returns (StatueRes) {
+    };
+    rpc Log (LogReq) returns (LogRes) {
+    };
+    rpc Kill (KillReq) returns (KillRes) {
+    };
+}
+
+message HostNode {
+    string Name = 1;
+    string Host = 2;
+    string Port = 3;
+    string User = 4;
+    string Pass = 5;
+    int32 Type = 6;
+}
+message DeployReq {
+    string ProjectId = 1;
+    repeated string SoftWareNameList = 2;
+    repeated HostNode List = 3;
+    map<string, string> Items = 4;
+    repeated ConfigInfo ConfigFile = 5;
+}
+message DeployRes {
+    int32 Id = 1;
+}
+
+message DeleteReq {
+    string ProjectId = 1;
+    string Desc = 2;
+}
+
+message DeleteRes {
+}
+
+message HostNodeWithNoPass {
+    string Name = 1;
+    string Host = 2;
+    string Port = 3;
+}
+
+message ConfigInfo {
+    string ConfigPath = 1;
+    string ConfigEtcdPattern = 2;
+}
+
+message StatueReq {
+    int32 Id = 1;
+    string ProjectId = 2;
+    string SoftwareName = 3;
+    string SoftwareVersion = 4;
+    string HostIp = 5;
+}
+
+message StatueRes {
+    int32 Status = 1;
+}
+
+message LogReq {
+    int32 Id = 1;
+    string ProjectId = 2;
+    string SoftwareName = 3;
+    string SoftwareVersion = 4;
+    string HostIp = 5;
+}
+
+message LogRes {
+    string Log = 1;
+}
+
+message KillReq {
+    string ProjectId = 1;
+    int32 Id = 2;
+}
+
+message KillRes {
+
+}
+

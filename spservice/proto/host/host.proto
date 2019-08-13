@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+
+service Host {
+    rpc CheckHost (CheckHostReq) returns (CheckHostRes) {
+    };
+}
+
+//检查主机
+message CheckHostReq {
+    string Name = 1;
+    string Host = 2;
+    int32 Port = 3;
+    string UserName = 4;
+    string Passwd = 5;
+    int32 HostType = 6;
+    string Desc = 7;
+}
+
+message CheckHostRes {
+    bool Ok = 1;
+}

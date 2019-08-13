@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+service SoftWareConfig {
+    rpc List (SoftWareConfigListRequest) returns (SoftWareConfigListResponse) {
+    };
+}
+
+//查询软件配置列表
+message SoftWareConfigListRequest {
+    int32 Page = 2;
+    int32 PageSize = 3;
+    int32 SoftwareType = 4;
+}
+message SoftWareConfigNode {
+    int32 Id = 1;
+    string SoftwareName = 3;
+    int32 SoftwareType = 4;
+    string SoftwareVersions = 5;
+    string CreateTime = 6;
+}
+message SoftWareConfigListResponse {
+    repeated SoftWareConfigNode List = 1;
+    int32 Sum = 2;
+}
+
+
+

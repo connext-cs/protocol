@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service User {
+    rpc Login (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Logout (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Userlist (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Ldapuserlist (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Userauthorize (go.api.Request) returns (go.api.Response) {
+    }
+    rpc PrivilegeList (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Setuserinfo (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Unregisteruserlist (go.api.Request) returns (go.api.Response) {
+    }
+    rpc Deleteuser (go.api.Request) returns (go.api.Response) {
+    }
+    rpc AuthorizeApplicationList (go.api.Request) returns (go.api.Response) {
+    }
+    rpc UnauthorizeApplicationList (go.api.Request) returns (go.api.Response) {
+    }
+    rpc AuthorizeAppIDList (UserID) returns (AppIDList) {
+    }
+    rpc AddAppLink (AppLink) returns (LinkRes) {
+    }
+    rpc DeleteAppLink (AppLink) returns (LinkRes) {
+    }
+    rpc IfUserHasPrivilege (HasPrivilegeReq) returns (HasPrivilegeRes) {
+    }
+    rpc UserPrivilege (UserID) returns (PrivilegeSet) {
+    }
+    rpc URLAuthorization (UserURLPath) returns (Authorization) {
+    }
+}
+
+service Api {
+    rpc Login (UserInfo) returns (TokenValue) { }
+    rpc Logout (TokenValue) returns (LinkRes) { }
+}
+
+message LinkRes {
+    int32 Success = 1;
+}
+
+message AppLink {
+    int32 UserID = 1;
+    int32 AppID = 2;
+}
+
+message UserID {
+    int32 UserID = 1;
+}
+
+message AppID {
+    int32 AppID = 1;
+}
+
+message AppIDList {
+    repeated AppID IDList = 1;
+}
+
+message HasPrivilegeReq {
+    int32 UserId = 1;
+    repeated int32 PrivilegeId = 2;
+}
+
+message HasPrivilegeRes {
+    bool Has = 1;
+}
+
+message UserInfo{
+    string username = 1;
+    string password = 2;
+}
+
+message TokenValue{
+    string Token = 1;
+}
+
+message Privilege{
+    int32 privilegeid = 1;
+    string privilegename = 2;
+    string privilegekey = 3;
+}
+
+message PrivilegeSet {
+    repeated Privilege List = 1;
+}
+message UserURLPath{
+    int32 UserId = 1;
+    string URL = 2;
+    string Method = 3;
+}
+
+message Authorization{
+    bool Success= 1;
+}

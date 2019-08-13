@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Component {
+	rpc List(go.api.Request) returns(go.api.Response) {};
+	rpc Add(go.api.Request) returns(go.api.Response) {};
+	rpc Delete(go.api.Request) returns(go.api.Response) {};
+	rpc Update(go.api.Request) returns(go.api.Response) {};
+	rpc Urlcheck(go.api.Request) returns(go.api.Response) {};
+	rpc Namelist(go.api.Request) returns(go.api.Response) {};
+
+    rpc NewGitInfo(go.api.Request) returns (go.api.Response) {};
+    rpc QueryGitInfo(go.api.Request) returns (go.api.Response) {};
+    rpc GetProject(go.api.Request) returns (go.api.Response) {};
+    rpc QueryProjectReadme(go.api.Request) returns (go.api.Response) {};
+    rpc SyncAllProjectInfo(go.api.Request) returns (go.api.Response) {};
+    rpc ClearProjectInfo(go.api.Request) returns (go.api.Response) {};
+}

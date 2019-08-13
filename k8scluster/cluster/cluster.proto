@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Cluster {
+    //1 创建集群 "/new_cluster"
+	rpc Newcluster(go.api.Request) returns(go.api.Response) {};                
+    //2 查询集群状态 "/queryCluster
+	rpc Querycluster(go.api.Request) returns(go.api.Response) {};             
+	//3 查询Dashboard状态 queryDashBoard
+	rpc Querydashboard(go.api.Request) returns(go.api.Response) {};                 
+	//4 查询Nodelist queryNodelist
+	rpc Querynodelist(go.api.Request) returns(go.api.Response) {};            
+	//5 查询Node详情 queryNodeDetail
+	rpc Querynodedetail(go.api.Request) returns(go.api.Response) {};                
+	//6 扩展集群 extendCluster
+	rpc Extendcluster(go.api.Request) returns(go.api.Response) {};             
+	//7 删除节点 deleteClusterNode
+	rpc Deleteclusternode(go.api.Request) returns(go.api.Response) {};        
+	//8 检查节点 checknode
+	rpc Checknode(go.api.Request) returns(go.api.Response) {};      
+	//9 获取节点状态 getnodestatue
+	rpc Getnodestatue(go.api.Request) returns(go.api.Response) {};            
+	//10集群状态 clusterstatus
+	rpc Clusterstatus(go.api.Request) returns(go.api.Response) {};
+}

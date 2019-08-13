@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+service Encrypt {
+    rpc QueryEncryptSalt(QueryEncryptSaltReq) returns (QueryEncryptSaltRes) {
+    };
+}
+
+
+message QueryEncryptSaltReq {
+    string SaltKey = 1;
+}
+
+message QueryEncryptSaltRes{
+    string Salt= 1;
+}

@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+service Namespace {
+	//新建父项目
+	rpc CreateNamespace(CreateNamespaceRequest) returns(CreateNamespaceResponse) {};
+	//删除父项目
+	rpc DeleteNamespace(DeleteNamespaceRequest) returns(DeleteNamespaceResponse) {};
+	//获取父项目
+	rpc GetNamespace(GetNamespaceRequest) returns(GetNamespaceResponse) {};
+	//源访问ip块
+	rpc AllowToIPBlock(AllowToIPBlockRequest) returns(AllowToIPBlockResponse) {};
+	//目标ip块访问源
+	rpc AllowFromIPBlock(AllowFromIPBlockRequest) returns(AllowFromIPBlockResponse) {};
+	// 源访问父项目
+	rpc AllowToNamespace(AllowToNamespaceRequest) returns(AllowToNamespaceResponse) {};
+	//父项目访问源
+	rpc AllowFromNamespace(AllowFromNamespaceRequest) returns(AllowFromNamespaceResponse) {};
+	//删除网络隔离
+	rpc DeleteExistingRule(DeleteExistingRuleRequest) returns(DeleteExistingRuleResponse) {};
+	//获取资源管理信息
+	rpc GetQuota(GetQuotaRequest) returns(GetQuotaResponse) {};
+	//应用资源管理信息
+	rpc ApplyQuota(ApplyQuotaRequest) returns(ApplyQuotaResponse) {};
+	//创建或者更新config
+	rpc CreateOrUpdateConfig(CreateOrUpdateConfigRequest) returns(CreateOrUpdateConfigResponse) {};
+	//删除config
+	rpc DeleteConfig(DeleteConfigRequest) returns(DeleteConfigResponse) {};
+
+
+}
+
+message CreateNamespaceRequest{
+	string Name = 1; 
+	string Cpu = 2;
+	string Memory = 3;
+	string Pod = 4;       
+}
+message CreateNamespaceResponse{
+}
+
+message DeleteNamespaceRequest{
+	string Name = 1; 
+}
+message DeleteNamespaceResponse{
+}
+
+message GetNamespaceRequest{ 
+	string 	Name = 1;
+}
+message GetNamespaceResponse{
+}
+
+message AllowToIPBlockRequest{
+	string Parentproject = 1;
+	string Name = 2;
+	string 	IPBlock = 3;
+	repeated int32 Ports = 4;
+	string Protocol = 5;
+}
+message AllowToIPBlockResponse{
+}
+
+message AllowFromIPBlockRequest{
+	string Parentproject = 1;
+	string Name = 2;   
+	string 	IPBlock = 3;
+	repeated int32 Ports = 4;
+	string Protocol = 5; 
+}
+message AllowFromIPBlockResponse{
+}
+
+message AllowToNamespaceRequest{
+	string Parentproject = 1;
+	string Name = 2;   
+	string 	Namespace = 3;
+	repeated int32 Ports = 4;
+	string Protocol = 5; 
+}
+message AllowToNamespaceResponse{
+}	
+
+message AllowFromNamespaceRequest{
+	string Parentproject = 1;
+	string Name = 2;   
+	string 	Namespace = 3;
+	repeated int32 Ports = 4;
+	string Protocol = 5; 
+}
+message AllowFromNamespaceResponse{
+}	
+
+message DeleteExistingRuleRequest{
+	string Parentproject = 1;  
+	string 	Name = 2;  
+}
+message DeleteExistingRuleResponse{
+}
+
+message Quota{
+	string	MaxCPU = 1;
+	string MaxMemory = 2;
+	string MaxPods = 3; 
+}
+message GetQuotaRequest{  
+	string 	Name = 1;  
+}
+message GetQuotaResponse{
+	Quota Quota = 1;
+}	
+
+message ApplyQuotaRequest{  
+	string 	Name = 1;  
+	Quota Quota = 2;
+}
+message ApplyQuotaResponse{
+}	
+
+message Config{
+	string ConfigName = 1;
+	string ConfigFileName = 2;
+	string ConfigFileContent = 3;
+	string NameSpace = 4;  
+}
+
+message CreateOrUpdateConfigRequest{  
+	Config Config = 1;
+}
+message CreateOrUpdateConfigResponse{
+}	
+
+message DeleteConfigRequest{
+	Config Config = 1; 
+}
+message DeleteConfigResponse{
+}

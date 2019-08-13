@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+    service Project {
+    rpc Newprojectcheck(go.api.Request) returns (go.api.Response) {}
+    rpc Newproject(go.api.Request) returns (go.api.Response) {}
+    rpc Projectlist(go.api.Request) returns (go.api.Response) {}
+    rpc Projectcompiledata(go.api.Request) returns (go.api.Response) {}
+    rpc Projectimagedate(go.api.Request) returns (go.api.Response) {}
+    rpc Project_warehouse_address(go.api.Request) returns (go.api.Response) {}
+    rpc Delproject(go.api.Request) returns (go.api.Response) {}
+    rpc Rollbackproject(go.api.Request) returns (go.api.Response) {}
+    rpc Stopproject(go.api.Request) returns (go.api.Response) {}
+    rpc Updateproject(go.api.Request) returns (go.api.Response) {}
+    rpc Projectrelease(go.api.Request) returns (go.api.Response) {}
+    rpc Projectreleasehistory(go.api.Request) returns (go.api.Response) {}
+    rpc Projectreleasejobloghistroy(go.api.Request) returns (go.api.Response) {}
+    rpc Projectreleaseinfo(go.api.Request) returns (go.api.Response) {}
+    rpc Releaseprojectstatus(go.api.Request) returns (go.api.Response) {}
+    rpc Projectpodlist(go.api.Request) returns (go.api.Response) {}
+    rpc Updatecodelog(go.api.Request) returns (go.api.Response) {}
+    rpc Projectsonarlog(go.api.Request) returns (go.api.Response) {}
+    rpc Projectcompilelog(go.api.Request) returns (go.api.Response) {}
+    rpc Projectbuildimagelog(go.api.Request) returns (go.api.Response) {}
+    rpc Projectreleasecdlog(go.api.Request) returns (go.api.Response) {}
+    rpc Projectbaseinfo(go.api.Request) returns (go.api.Response) {}
+    rpc Updatepodnumber(go.api.Request) returns (go.api.Response) {}
+    rpc Searchprojectlog(go.api.Request) returns (go.api.Response) {}
+    rpc Viewprojectlog(go.api.Request) returns (go.api.Response) {}
+    rpc Update_project_inner_network(go.api.Request) returns (go.api.Response) {}
+    rpc New_project_inner_network(go.api.Request) returns (go.api.Response) {}
+    rpc Del_project_inner_network(go.api.Request) returns (go.api.Response) {}
+    rpc New_project_external_network(go.api.Request) returns (go.api.Response) {}
+    rpc Check_project_external_network_domain(go.api.Request) returns (go.api.Response) {}
+    rpc Update_project_external_network(go.api.Request) returns (go.api.Response) {}
+    rpc Del_project_external_network(go.api.Request) returns (go.api.Response) {}
+//    rpc Projectstatusinfo(go.api.Request) returns (go.api.Response) {}
+    rpc Projectsummarize(go.api.Request) returns (go.api.Response) {}
+    rpc Addprojectconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Deleteprojectconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Updateprojectconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Querydefaultconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Resourceconfig(go.api.Request) returns (go.api.Response) {}
+    rpc Query_project_notice(go.api.Request) returns (go.api.Response) {}
+//    rpc Query_pod_event(go.api.Request) returns (go.api.Response) {}
+    rpc Query_pod_list_event(go.api.Request) returns (go.api.Response) {}
+    rpc Query_project_sonar_status(go.api.Request) returns (go.api.Response) {}
+    rpc Query_project_releasing(go.api.Request) returns (go.api.Response) {}
+    rpc Checkprojectversion(go.api.Request) returns (go.api.Response) {}
+    rpc Checkprojectname(go.api.Request) returns (go.api.Response) {}
+    rpc LogTemplet(go.api.Request) returns (go.api.Response) {}
+    rpc LogTempletInfo(go.api.Request) returns (go.api.Response) {}
+    rpc NewLogTemplet(go.api.Request) returns (go.api.Response) {}
+    rpc DeleteLogTemplet(go.api.Request) returns (go.api.Response) {}
+}
+
+service Service {
+    rpc Servicelist(go.api.Request) returns (go.api.Response) {}
+    rpc Newservice(go.api.Request) returns (go.api.Response) {}
+    rpc Servicecreatelist(go.api.Request) returns (go.api.Response) {}
+    rpc Updateservice(go.api.Request) returns (go.api.Response) {}
+    rpc Delservice(go.api.Request) returns (go.api.Response) {}
+    rpc Restartservice(go.api.Request) returns (go.api.Response) {}
+    rpc Servicedetail(go.api.Request) returns (go.api.Response) {}
+    rpc Serviceparams(go.api.Request) returns (go.api.Response) {}
+    rpc Viewservicelog(go.api.Request) returns (go.api.Response) {}
+    rpc Searchservicelog(go.api.Request) returns (go.api.Response) {}
+    rpc Externalmanagement(go.api.Request) returns (go.api.Response) {}
+}

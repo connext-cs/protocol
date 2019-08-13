@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service HostService {
+    rpc List(go.api.Request) returns (go.api.Response) {};
+    rpc RpcList(EmptyRequest) returns(HostList){};
+    rpc Query(go.api.Request) returns (go.api.Response) {};
+    rpc RpcQuery(GetHostRequest) returns (HostInfo){};
+    rpc RpcHosttag(GetHostRequest) returns (HostTagList){};
+    rpc Update(go.api.Request) returns (go.api.Response) {};
+    rpc Delete(go.api.Request) returns (go.api.Response) {};
+    rpc Add(go.api.Request) returns (go.api.Response) {};
+    rpc AgentProgress(go.api.Request) returns (go.api.Response) {};
+    rpc LinuxAgentInstallCmd(go.api.Request) returns (go.api.Response) {};
+    rpc WindowsAgentInstallCMD(go.api.Request) returns (go.api.Response) {};
+    rpc OpenAgent(go.api.Request) returns (go.api.Response) {};
+    rpc HostJobList(go.api.Request) returns (go.api.Response) {};
+    rpc HostImport(go.api.Request) returns (go.api.Response) {};
+    rpc RemoveInspectReportByGroup(RemoveInspectReportByGroupReq) returns (EmptyResponse){};
+    rpc RpcAllHostsByIds (QueryAllHostRequest) returns (HostList);
+    rpc GetHostsByNameOrIP(GetHostsByNameOrIPRequest) returns (HostList) {};
+}
+
+message GetHostsByNameOrIPRequest {
+    string queryItem = 1;
+}
+
+message QueryAllHostRequest {
+    repeated int32 HostIds = 1;
+}
+
+message RemoveInspectReportByGroupReq{
+    int32 ParentProjectId = 1;
+    repeated int32 Hosts = 2;
+}
+
+message EmptyResponse{
+    
+}
+
+message EmptyRequest{}
+
+message GetHostRequest{
+    int32 HostID = 1;
+}
+message HostInfo {
+    int32   HostID = 1;
+    string  HostName = 2;
+    int32   HostState = 3;
+    int32   HostSystem = 4;
+    string  HostIP = 5;
+    int32   ResourceType =6;
+    int32   HostType = 7;
+    int32   AgentType = 8;
+    int32   GroupID = 9;
+    string  GroupName = 10;
+    string  Version = 11;
+    string  CreateTime = 12;
+    string  UpdateTime = 13;
+    string  Username = 14;
+    string  Password = 15;
+}
+
+message HostList {
+    repeated  HostInfo HostList =1;
+}
+
+message HostTagList {
+    repeated  HostTag HostTagList =1;
+}
+
+message HostTag {
+	string HostTagId =1;    
+	int32 HostId = 2;    
+	string HostTag = 3;    
+	string HostTagValue = 4; 
+	string HostTagName  = 7; 
+}

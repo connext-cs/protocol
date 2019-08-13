@@ -1,0 +1,361 @@
+syntax = "proto3";
+
+service Project {
+    //发布项目
+    rpc CreateProject (CreateProjectRequest) returns (CreateProjectResponse) {
+    };
+    //重新发布项目
+    rpc ReCreateProject (ReCreateProjectRequest) returns (ReCreateProjectResponse) {
+    };
+    //获取项目状态
+    rpc GetProjectStatus (GetProjectStatusRequest) returns (GetProjectStatusResponse) {
+    };
+    //删除项目
+    rpc DeleteProject (DeleteProjectRequest) returns (DeleteProjectResponse) {
+    };
+    //回滚项目
+    rpc RollOutProject (RollOutProjectRequest) returns (RollOutProjectResponse) {
+    };
+    rpc GetRollOutRevision (GetRollOutRevisionRequest) returns (GetRollOutRevisionResponse) {
+    };
+    //停止项目
+    rpc StopProject (StopProjectRequest) returns (StopProjectResponse) {
+    };
+    //获取pod列表
+    rpc GetPodlist (GetPodlistRequest) returns (GetPodlistResponse) {
+    };
+    //获取项目运行副本数
+    rpc GetDeploymentReplicas (GetDeploymentReplicasRequest) returns (GetDeploymentReplicasResponse) {
+    };
+    //设置项目需求副本数
+    rpc SetDeploymentReplicas (SetDeploymentReplicasRequest) returns (SetDeploymentReplicasResponse) {
+    };
+    //获取项目事件信息
+    rpc GetProjectEvent (GetProjectEventRequest) returns (GetProjectEventResponse) {
+    };
+    //创建或者更新外部网络
+    rpc CreateOrUpdateProjectExternalNetwork (CreateOrUpdateProjectExternalNetworkRequest) returns (CreateOrUpdateProjectExternalNetworkResponse) {
+    };
+    //创建TCP外网
+    rpc UpdateServiceToExternal (UpdateServiceToExternalRequest) returns (UpdateServiceToExternalResponse) {
+    };
+    //删除外网
+    rpc DeleteProjectExternalNetwork (DeleteProjectExternalNetworkRequest) returns (DeleteProjectExternalNetworkResponse) {
+    };
+    //将TCP外网改成内网
+    rpc UpdateServiceToInner (UpdateServiceToInnerRequest) returns (UpdateServiceToInnerResponse) {
+    };
+    //创建service
+    rpc CreateService (CreateServiceRequest) returns (CreateServiceResponse) {
+    };
+    //删除service
+    rpc DeleteService (DeleteServiceRequest) returns (DeleteServiceResponse) {
+    };
+    //更新service
+    rpc UpdateService (UpdateServiceRequest) returns (UpdateServiceResponse) {
+    };
+    //更新project log type
+    //rpc UpdateLogType(UpdateLogTypeRequest) returns (UpdateLogTypeResponse) {};
+    //更新 HPA
+    rpc CreateOrUpdateHPA (CreateOrUpdateHPARequest) returns (CreateOrUpdateHPAResponse) {
+    };
+    //删除HPA
+    rpc DeleteHPA (DeleteHPARequest) returns (DeleteHPAResponse) {
+    };
+}
+
+message CreateProjectRequest {
+    ProInfo ProInfo = 1;
+    FluentdConfigmapInfo FluentdConfigmapInfo = 2;
+    DeployInfo DeployInfo = 3;
+    string Nodegroup = 4;
+    repeated ServiceInfo ServiceInfoList = 5;
+    repeated NetworkExternal NetworkExternalList = 6;
+    PodSeniorInfo PodSeniorInfo = 7;
+}
+message CreateProjectResponse {
+}
+
+message ReCreateProjectRequest {
+    ProInfo ProInfo = 1;
+    FluentdConfigmapInfo FluentdConfigmapInfo = 2;
+    DeployInfo DeployInfo = 3;
+    string Nodegroup = 4;
+    repeated ServiceInfo ServiceInfoList = 5;
+    repeated NetworkExternal NetworkExternalList = 6;
+    PodSeniorInfo PodSeniorInfo = 7;
+}
+message ReCreateProjectResponse {
+}
+
+
+message GetProjectStatusRequest {
+    ProInfo ProInfo = 1;
+    repeated ServiceInfo ServiceInfoList = 2;
+    repeated NetworkExternal NetworkExternalList = 3;
+}
+message GetProjectStatusResponse {
+    string SourceStatus = 1;
+}
+
+
+message DeleteProjectRequest {
+    ProInfo ProInfo = 1;
+    repeated ServiceInfo ServiceInfoList = 2;
+    repeated NetworkExternal NetworkExternalList = 3;
+}
+message DeleteProjectResponse {
+}
+
+// deployment rollout start
+message RollOutProjectRequest {
+    ProInfo ProInfo = 1;
+    int64 VerDiff = 2;
+}
+message RollOutProjectResponse {
+    int64 LastRevision = 1;
+}
+
+message GetRollOutRevisionRequest {
+    ProInfo ProInfo = 1;
+}
+message GetRollOutRevisionResponse {
+    int64 LastRevision = 1;
+    repeated HistoryRevision HistoryRevision=2;
+}
+message HistoryRevision{
+    int64 Version=1;
+    string ChangeReson=2;
+}
+// deployment rollout  end
+
+message StopProjectRequest {
+    ProInfo ProInfo = 1;
+}
+message StopProjectResponse {
+}
+
+
+message GetPodlistRequest {
+    ProInfo ProInfo = 1;
+}
+message GetPodlistResponse {
+    repeated ProjectPodItem ProjectPodItem = 1;
+}
+
+
+message GetDeploymentReplicasRequest {
+    ProInfo ProInfo = 1;
+}
+message GetDeploymentReplicasResponse {
+    int32 Replicas = 1;
+    int32 Readyreplicas = 2;
+}
+
+
+message SetDeploymentReplicasRequest {
+    ProInfo ProInfo = 1;
+    int32 Replicas = 2;
+}
+message SetDeploymentReplicasResponse {
+}
+
+message CreateOrUpdateProjectExternalNetworkRequest {
+    ProInfo ProInfo = 1;
+    NetworkExternal NetworkExternal = 2;
+}
+message CreateOrUpdateProjectExternalNetworkResponse {
+}
+
+
+message UpdateServiceToExternalRequest {
+    string Namespace = 1;
+    string Name = 2;
+}
+message UpdateServiceToExternalResponse {
+}
+
+
+message DeleteProjectExternalNetworkRequest {
+    ProInfo ProInfo = 1;
+    NetworkExternal NetworkExternal = 2;
+}
+message DeleteProjectExternalNetworkResponse {
+}
+
+
+message UpdateServiceToInnerRequest {
+    string Namespace = 1;
+    string Name = 2;
+}
+message UpdateServiceToInnerResponse {
+}
+
+
+message CreateServiceRequest {
+    ProInfo ProInfo = 1;
+    ServiceInfo ServiceInfo = 2;
+}
+message CreateServiceResponse {
+}
+
+
+message DeleteServiceRequest {
+    string Namespace = 1;
+    string Name = 2;
+}
+message DeleteServiceResponse {
+}
+
+
+message UpdateServiceRequest {
+    ProInfo ProInfo = 1;
+    ServiceInfo ServiceInfo = 2;
+}
+message UpdateServiceResponse {
+}
+//
+message CreateOrUpdateHPARequest {
+    ProInfo ProInfo = 1;
+    PodSeniorInfo PodSeniorInfo = 2;
+}
+message CreateOrUpdateHPAResponse {
+}
+//
+message DeleteHPARequest {
+    ProInfo ProInfo = 1;
+}
+message DeleteHPAResponse {
+}
+
+/*//
+message UpdateLogTypeRequest {
+    ProjectLogType ProjectLogType=1;
+}
+message UpdateLogTypeResponse {
+    string status=1;
+}*/
+
+message ProjectPodItem {
+    string PodName = 1;
+    string PodStatus = 2;
+    string PodCreatetime = 3;
+    string PodNode = 4;
+    int32 PodRestartCount = 5;
+}
+
+message ProInfo {
+    string ProjectK8sName = 1;
+    string ParentProjectK8sName = 2;
+}
+
+message FluentdConfigmapInfo {
+    repeated ProjectLog LogList = 1;
+}
+
+message DeployInfo {
+    string ImageName = 1;
+    string ImageWarehouse = 2;
+    int32 ImageBuildNumber = 3;
+    int32 ProjectReleaseType = 4;
+    repeated EnvironmentVariable EnvironmentVariableList = 5;
+    repeated ProjectStorage StorageList = 6;
+    string CMD = 7;
+    int32 PodCPUMemory = 8;
+    repeated ProjectConfig ConfigList = 9;
+    bool AutoExtend = 10;
+    int32 AutoMinPods = 11;
+    int32 Pods = 12;
+    string LogTemplateID = 13;
+}
+
+message ServiceInfo {
+    string Name = 1;
+    string Namespace = 2;
+    string Type = 3;
+    int32 InnerPodPort = 4;
+    int32 InnerServicePort = 5;
+    string K8SType = 6;
+    string Protocol = 7;
+}
+
+message NetworkExternal {
+    string Name = 1;
+    string InnerName = 2;
+    int32 InnerServicePort = 3;
+    string ExternalProtocol = 4;
+    string ExternalPath = 5;
+    string ExternalDomain = 6;
+    string Certificate = 7;
+    string SecretKey = 8;
+    string ExternalCname = 9;
+}
+
+message PodSeniorInfo {
+    int32 MinPods = 1;
+    int32 MaxPods = 2;
+    string PodTargetType = 3;
+    int32 PodCpuRquestTarget = 4;
+    int32 PodMemoryRquestTarget = 5;
+}
+
+message ProjectLog {
+    string LogName = 1;
+    string LogPath = 2;
+}
+
+message EnvironmentVariable {
+    string Name = 1;
+    string Value = 2;
+}
+
+message ProjectStorage {
+    string StorageName = 1;
+    int32 StorageTpye = 2;
+    string StorageServer = 3;
+    string StoragePath = 4;
+    string StorageMountpoint = 5;
+    int32 StoragePort = 6;
+}
+
+message ProjectConfig {
+    int32 ConfigID = 1;
+    string ConfigName = 2;
+    string ConfigMountpoint = 3;
+    string ConfigFileContent = 4;
+    string ConfigFileName = 5;
+}
+
+//start   get deployment events,get pod status and event
+message GetProjectEventRequest {
+    ProInfo ProInfo = 1;
+}
+message GetProjectEventResponse {
+    string Name = 1;
+    string Namespace = 2;
+    repeated DeploymentEvent Events = 3;
+    int32 PodCount=4;
+    repeated PodStatus PodList = 5;
+
+}
+message DeploymentEvent {
+    string Reason = 1;
+    string Message = 2;
+    string SourceComponent = 3;
+    string CreationTimestamp =4;
+}
+message PodEvent {
+    string Reason = 1;
+    string Message = 2;
+    string SourceComponent = 3;
+    string SourceHost = 4;
+}
+message PodStatus {
+    string Name = 1;
+    string  CreationTimestamp = 2;
+    string Status = 3;
+    int32 RestartCount = 4;
+    repeated PodEvent Events = 5;
+}
+//end   get deployment events,get pod status and event
+

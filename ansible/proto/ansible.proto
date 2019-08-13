@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+message Host {
+	string Type = 6;
+	string Name = 1;
+	string Host = 2;
+	string Port = 3;
+	string User = 4;
+	string Pass = 5;
+}
+message Config {
+	string ConfigPath =1;
+	string ConfigEtcdPattern = 2; 
+}
+message ConfigList {
+	repeated Config Items= 1;
+}
+message HostList {
+    repeated Host Items = 1;
+}
+
+message Git {
+	string User = 1;
+	string Pass = 2;
+	string Url = 3;
+}
+
+message Role {
+	string Name  = 1;
+	Git Git = 2;
+	string BranchOrTag = 3;
+}
+
+message RoleList {
+    repeated Role Items = 1;
+}
+
+message Tag {
+    string Name = 1;
+}
+
+message TagList {
+    repeated Tag Items = 1;
+}
+
+message VarList {
+	// map<key, value>
+	// key: the key off values
+	map<string, string> Items = 1;
+}
+
+message PlayBook {
+	string Id = 1;
+	RoleList RoleList = 2;
+    HostList HostList = 3;
+	VarList VarList = 4;
+	ConfigList ConfigList = 5;
+    //TagList TagList = 5;
+}
+
+message LogRequest {
+	string ID= 1;
+	string LogString = 2;
+	string Status = 3;
+} 
+
+message Response{
+	string ID = 1;
+}
+
+message StatusResponse {
+	bool Status = 1;
+}
+
+
+message K8SScaleNodeRequest {
+	string Id = 1;
+	repeated Host Masters  = 2;
+	repeated Host Nodes = 3;
+}
+
+message K8SDeleteNodeRequest {
+	string Id =1;
+	repeated Host Masters =2;
+	string Name =3;
+}
+
+service Ansible {
+	// Deploy, fabuxiangmu.
+	//
+	rpc Deploy(PlayBook) returns (Response);
+	rpc Delete(PlayBook) returns (Response);
+	rpc RollBack(PlayBook) returns (Response);
+	//rpc Update(PlayBook) returns (Response);
+	rpc Stop(PlayBook) returns (Response);
+	rpc Start(PlayBook) returns (Response);
+	rpc Restart(PlayBook) returns (Response);
+	rpc Status(PlayBook) returns (StatusResponse);
+	rpc CheckHost(HostList) returns (StatusResponse);
+	rpc KsScaleNodes(K8SScaleNodeRequest) returns (Response);
+	rpc KsDeleteNodes(K8SDeleteNodeRequest) returns (Response);
+	rpc Logs(LogRequest) returns (Response);
+}

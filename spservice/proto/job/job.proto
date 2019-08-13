@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+
+service Job {
+    rpc CheckRunningManager (CheckRunningManagerRequest) returns (CheckRunningManagerResponse) {
+    };
+    rpc CheckInitManager (CheckInitManagerRequest) returns (CheckInitManagerResponse) {
+    };
+    rpc CheckInitJob (CheckInitJobReq) returns (CheckInitJobReqRes) {
+    };
+    rpc CLusterNodeJobCheckInit (CLusterNodeJobCheckInitReq) returns (CLusterNodeJobCheckInitRes) {
+    };
+    rpc CLusterNodeJobCheckTimeout (CLusterNodeJobCheckTimeoutReq) returns (CLusterNodeJobCheckTimeoutRes) {
+    };
+}
+
+message CheckRunningManagerRequest {
+    int32 ManagerId = 1;
+}
+
+message CheckRunningManagerResponse {
+    bool Ok = 1;
+}
+
+message CheckInitManagerRequest {
+    int32 ManagerId = 1;
+}
+
+message CheckInitManagerResponse {
+    bool Ok = 1;
+}
+
+message CheckInitJobReq {
+    int32 ManagerJobId = 1;
+}
+
+message CheckInitJobReqRes {
+    bool Ok = 1;
+}
+
+message CLusterNodeJobCheckInitReq {
+    int32 ClustterNodeJobId = 1;
+}
+
+message CLusterNodeJobCheckInitRes {
+}
+
+message CLusterNodeJobCheckTimeoutReq {
+    int32 ClustterNodeJobId = 1;
+}
+
+message CLusterNodeJobCheckTimeoutRes {
+}
+
+

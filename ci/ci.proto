@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+import "github.com/micro/go-api/proto/api.proto";
+
+service Template {
+    rpc List(go.api.Request) returns (go.api.Response) {}
+    rpc Query(go.api.Request) returns (go.api.Response) {}
+    rpc UpdateTemplate(go.api.Request) returns (go.api.Response) {}
+}
+
+service Server {
+    rpc Add(go.api.Request) returns (go.api.Response) {}
+    rpc Delete(go.api.Request) returns (go.api.Response) {}
+    rpc Update(go.api.Request) returns (go.api.Response) {}
+    rpc Query(go.api.Request) returns (go.api.Response) {}
+    rpc List(go.api.Request) returns (go.api.Response) {}
+    rpc BuildInit(go.api.Request) returns (go.api.Response) {}
+    rpc Build(go.api.Request) returns (go.api.Response) {}
+    rpc BuildProcess(go.api.Request) returns (go.api.Response) {}
+    rpc SetBuildVersion(go.api.Request) returns (go.api.Response) {}
+    rpc BuildStop(go.api.Request) returns (go.api.Response) {}
+    rpc VersionList(go.api.Request) returns (go.api.Response) {}
+    rpc SFTPFileList(go.api.Request) returns (go.api.Response) {}
+    rpc BuildLog(go.api.Request) returns (go.api.Response) {}
+    rpc RpcVersionList(RpcVersionListReq) returns (RpcVersionListRes) {}
+    rpc RpcQuery(RpcQueryReq) returns (RpcQueryRes) {}
+    rpc RpcBuildQuery(RpcBuildQueryReq) returns (RpcBuildQueryRes) {}
+    rpc RpcDeleteByAppID(RpcDeleteByAppIDReq) returns (RpcDeleteByAppIDRes) {}
+    rpc RpcExistCIServerByAppID(RpcExistCIServerByAppIDReq) returns (RpcExistCIServerByAppIDRes) {}
+}
+
+message RpcBuildQueryReq{
+    int32 BuildID = 1;
+}
+
+message RpcBuildQueryRes{
+    int32 BuildID = 1;
+    int32 ServerID = 2;
+    int32 ScheduleID = 3;
+    string CustomBuildVersion = 4;
+    string BuildVersion = 5;
+    int32 BuildStatus = 6;
+    string ServerContent = 7;
+    string PackageURL = 8;
+    string CreateTime = 9;
+    string UpdateTime = 10;
+}
+
+message RpcExistCIServerByAppIDReq{
+    int32 AppID = 1;
+}
+
+message RpcExistCIServerByAppIDRes{
+    bool Exist = 1;
+}
+
+message RpcDeleteByAppIDReq {
+    int32 AppID = 1;
+}
+
+message RpcDeleteByAppIDRes {}
+
+message RpcVersionListReq {
+    int32 ServerID = 1;
+}
+
+message RpcVersionListRes {
+    repeated BuildInfo BuildList = 1;
+}
+
+message BuildInfo {
+    int32 BuildID = 1;
+    string CustomBuildVersion = 2;
+    int32 BuildStatus = 3;
+    string PackageURL = 4;
+    string CreateTime = 5;
+}
+
+message RpcQueryReq {
+    int32 ServerID = 1;
+}
+
+message RpcQueryRes {
+    int32 ServerID = 1;
+    int32 AppID = 2;
+    string ServerName = 3;
+    string ServerContent =4;
+    int32 TemplateID = 5;
+    string TemplateName = 6;
+    string TemplateContent = 7;
+}
