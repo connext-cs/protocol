@@ -571,3 +571,16 @@ func CKibanaAddrExternal() string {
 func SuperPassword() string {
 	return cStr("super_password", dSuperPassword)
 }
+
+// below for amway poc
+func AmwayUser() string {
+	return cStr("amway_poc_user", "")
+  }
+  
+  func AmwayPwd() string {
+	return cStr("amway_poc_pwd", "")
+  }
+  
+  func AmwayTemplatePath() string {
+	return cStr("amway_poc_terraform_path", "")
+  }
