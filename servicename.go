@@ -19,6 +19,7 @@ const (
 	TerraformServiceName      = "go.micro.api.terraform"
 	WebAPIService             = "web.apiservice"
 	AliyunOperatorServiceName = "go.micro.api.aliyunOperator"
+        AmwayServiceName          = "go.micro.api.amway"
 )
 
 const (
@@ -39,7 +40,7 @@ const (
 	ModelName_component            = "component"
 	ModelName_terraform            = "terraform"
 	ModelName_WebAPIService        = "web.apiservice"
-	ModelName_AliyunOperator       = "aliyunoperator"
+	ModelName_Amway                = "amwayservice"
 )
 
 const APIROOTPATH = "/api/v1"
