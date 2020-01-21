@@ -6,7 +6,7 @@ import (
 
 	"github.com/micro/cli"
 	"time"
-	"github.com/connext-cs/protocol/config"
+	"msp-git.connext.com.cn/module/pub/config"
 	"github.com/hashicorp/consul/api"
 	"path/filepath"
 	"encoding/json"
