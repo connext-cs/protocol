@@ -5,7 +5,7 @@ go 1.12
 replace github.com/testcontainers/testcontainer-go => github.com/testcontainers/testcontainers-go v0.0.0-20190108154635-47c0da630f72
 
 require (
-        github.com/connext-cs/pub v0.0.0-20191108102523-8505d58bef69
+        github.com/connext-cs/pub v0.0.0-20191108022523-8505d58bef69
 	github.com/golang/protobuf v1.3.2
 	github.com/gorilla/handlers v1.4.2
 	github.com/gorilla/websocket v1.4.0
